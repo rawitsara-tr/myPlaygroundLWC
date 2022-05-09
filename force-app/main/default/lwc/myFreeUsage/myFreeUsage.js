@@ -24,6 +24,7 @@ const columns = [{
     sortable: true
 },
 {
+    label: 'Actions',
     type: 'action',
     typeAttributes: { rowActions: actions },
 }
@@ -51,7 +52,6 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
     isPageChanged = false;
     initialLoad = true;
     mapoppNameVsOpp = new Map();;
-
     wiredFreeUsageResult;
     @wire(getOpps, { searchKey: '$searchKey', sortBy: '$sortedBy', sortDirection: '$sortedDirection' })
     wiredAccounts(result) {
@@ -69,7 +69,6 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
         this.items = data;
         this.totalRecountCount = data.length;
         this.totalPage = Math.ceil(this.totalRecountCount / this.pageSize);
-
         this.data = this.items.slice(0, this.pageSize);
         this.endingRecord = this.pageSize;
         this.columns = columns;
@@ -173,7 +172,7 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
             type: 'standard__objectPage',
             attributes: {
                 actionName: "new",
-                objectApiName: "FreeUsage__c" 
+                objectApiName: "FreeUsage__c" // FreeUsage__c
             }
         })
     }
