@@ -1,0 +1,15 @@
+<template>
+    <!-- 1 Parent to Child -->
+    <div class="slds-m-around_large">
+        <!-- <c-my-child message={message}></c-my-child> -->
+        <!-- <c-my-child></c-my-child> -->
+    </div>
+    <div class="slds-m-around_large">
+        <lightning-button label="Parent to Child" value="Parent to Child" onclick={handleClickParentToChild}>
+        </lightning-button>
+    </div>
+
+    <!-- 2 Child to Parent -->
+    <!-- btnClick is a event name of Child Component -->
+    <c-my-child onbtnclick={handleEventFromChild}></c-my-child>  
+</template>

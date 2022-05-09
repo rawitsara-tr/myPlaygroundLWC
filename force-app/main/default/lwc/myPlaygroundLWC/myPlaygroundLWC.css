@@ -1,0 +1,31 @@
+/* 2 Button */
+/* .lgc-bg {
+    background-color: rgb(242, 242, 242);
+} */
+.lgc-bg-inverse {
+    background-color: rgb(22, 50, 92);
+}
+
+/* 3 Layout */
+.c-container {
+    border: 1px solid #d8dde6;
+    margin: 10px 0 20px 0;
+}
+.header-column {
+    padding: 0 2rem;
+}
+.field-title {
+    font-size: .75rem;
+    line-height: 1.25;
+    color: #54698d;
+    margin-bottom: .25rem;
+}
+
+/* 8 Apex Class getContactList */
+.slds-p-around_medium, .slds-p-around--medium, .slds-table th, .slds-table {
+    padding: 0px;
+}
+.myButton {
+    margin: 5px;
+}
+

@@ -1,0 +1,14 @@
+<template>
+    <div class="slds-m-around_small">
+        <!-- Full / Compact -->
+        <lightning-record-form
+            object-api-name = "Account"
+            layout-type = "Compact"
+            columns = "2"
+            mode = "edit"
+            onerror = {handleError}
+            onsuccess = {handleSuccess}
+            onsubmit = {handleSubmit}
+        ></lightning-record-form>
+    </div>
+</template>

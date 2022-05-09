@@ -1,0 +1,344 @@
+<template>
+    <div class="slds-m-around_large">
+        <!-- 1 Card -->
+        <h1>1 Card</h1>
+        <lightning-card title="Preaw Card Title" icon-name="utility:hierarchy">
+            <div class="slds-card__body slds-card__body-inner">
+                <p>
+                    <lightning-formatted-text value={text1}></lightning-formatted-text>
+                </p>
+            </div>
+        </lightning-card>
+
+        <!-- 2 Button -->
+        <div class="slds-m-top_medium slds-m-bottom_x-large">
+            <h2 class="slds-text-heading_small slds-m-bottom_medium">
+                Button menu with some <code>lightning-menu-item</code> components disabled.
+            </h2>
+            <h1>2 Button</h1>
+            <div class="slds-p-around_medium lgc-bg">
+                <lightning-button-menu alternative-text="Show menu" menu-alignment="auto">
+                    <lightning-menu-item value="MenuItemOne" label="Menu Item One"></lightning-menu-item>
+                    <lightning-menu-item value="MenuItemTwo" label="Menu Item Two"></lightning-menu-item>
+                </lightning-button-menu>
+            </div>
+        </div>
+
+        <!-- 3 Layout -->
+        <h1>3 Layout</h1>
+        <div class="c-container">
+            <lightning-layout>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Field 1">Field 1</p>
+                        <p>Name</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Field2 (3)">Field 2 (3)
+                            <lightning-button-icon icon-name="utility:down" variant="border-filled" size="small"
+                                alternative-text="More Actions"></lightning-button-icon>
+                        </p>
+                        <p>Eligibility</p>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Field 3">Field 3</p>
+                        <a href="#">Website</a>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <div class="header-column">
+                        <p class="field-title" title="Field 4">Field 4</p>
+                        <p>
+                            <span title="">Address</span>
+                        </p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+
+        <!-- 4 Dynamic Input -->
+        <h1>4 Dynamic Input</h1>
+        <lightning-card title="Basic DOM Example" icon-name="utility:hierarchy">
+            <div class="slds-card__body slds-card__body-inner">
+                <p>
+                    <lightning-formatted-text value={text2}></lightning-formatted-text>
+                </p>
+                <p>
+                    <lightning-input onchange={handleChange1} label="Input Text" value={text2}></lightning-input>
+                </p>
+            </div>
+        </lightning-card>
+
+        <!-- 5 Button Clickable -->
+        <h1>5 Button Clickable</h1>
+        <div class="slds-box slds-theme--default">
+            <lightning-button-menu alternative-text="Show menu" variant="border-filled"
+                onselect={handleOnselectActionNew} label="Actions">
+                <lightning-menu-item value="Account" label="Create Account"></lightning-menu-item>
+                <lightning-menu-item value="Contact" label="Create Contact"></lightning-menu-item>
+                <lightning-menu-item value="Lead" label="Create Lead"></lightning-menu-item>
+                <lightning-menu-item value="Opportunity" label="Create Opportunity"></lightning-menu-item>
+            </lightning-button-menu>
+        </div>
+
+        <!-- 6 Conditional Button -->
+        <h1>6 Conditional Button</h1>
+        <lightning-card title="Conditional Rendering with Button" icon-name="utility:hierarchy">
+            <div class="slds-card__body slds-card__body-inner">
+                <p>
+                    <template if:true={show}>
+                        Peek-a-boo!
+                    </template>
+                    <template if:false={show}>
+                        I'm hiding!
+                    </template>
+                </p>
+                <p>
+                    <lightning-button onclick={handleClick1} variant="neutral" label="Switch"></lightning-button>
+                </p>
+            </div>
+        </lightning-card>
+
+        <!-- 7 lightning-input -->
+        <h1>7 lightning-input</h1>
+        <p>{inputText}</p>
+        <lightning-input label="Type Here" required value={inputText} onchange={handleChange2}></lightning-input>
+        <lightning-button label="Click Me" value="Hello" onclick={handleClick2}></lightning-button>
+
+        <!-- 8 Apex Class getContactList -->
+        <h1>8 Apex Class getContactList</h1>
+        <div class="slds-m-around_large">
+            <template for:each={resultContact} for:item="contactResult">
+                <p key={contactResult.Id}>
+                    {contactResult.Id} {contactResult.Name} {contactResult.Email}
+                </p>
+            </template>
+            <!-- Loop in Apex
+                for(Contact contactResult : result) {
+                    contact.Id
+                }
+            -->
+
+            <h2 id="element-with-table-label" class="slds-text-heading_medium slds-m-bottom_xx-small">
+                <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
+                8 Contact
+            </h2>
+            <h3 id="other-element-with-table-label" class="slds-text-title slds-m-bottom_small">Using
+                <code>aria-labelledby</code>, instead of aria-label
+            </h3>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Contact Id">Contact Id</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Name">Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Email">Email</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Email">Actions</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={resultContact} for:item="contactResult">
+                        <tr key={contactResult.Id} class="slds-hint-parent">
+                            <th data-label="Contact Id" scope="col">
+                                <div class="slds-truncate" title={contactResult.Id}><a href="#">{contactResult.Id}</a>
+                                </div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title={contactResult.Name}>{contactResult.Name}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title={contactResult.Email}>{contactResult.Email}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate">
+                                    <div class="myButton">
+                                        <lightning-button-menu icon-size="x-small" alternative-text="Show menu"
+                                            menu-alignment="auto">
+                                            <lightning-menu-item data-record-id={contactResult.Id} onclick={handleEdit}
+                                                value="Edit" label="Edit"></lightning-menu-item>
+                                            <lightning-menu-item data-record-id={contactResult.Id}
+                                                onclick={openConfirm} value="Delete" label="Delete">
+                                            </lightning-menu-item>
+                                        </lightning-button-menu>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </template>
+                    <template if:true={isConfirmOpen}>
+                        <!-- Modal/Popup Box LWC starts here -->
+                        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-02" aria-modal="true"
+                            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <!-- Modal/Popup Box LWC header here -->
+                                <header class="slds-modal__header">
+                                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                        title="Close" onclick={closeConfirm}>
+                                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                            size="small"></lightning-icon>
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Modal/PopUp Box header
+                                        LWC</h2>
+                                </header>
+                                <!-- Modal/Popup Box LWC body starts here -->
+                                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                                    <p><b>Modals/Popup Box are used to display content in a layer above the app.
+                                        </b></p>
+                                    <p><b>This paradigm is used in cases such as the creation or editing of a record, as well as
+                                            various types of messaging and wizards.
+                                        </b></p>
+                                </div>
+                                <!-- Modal/Popup Box LWC footer starts here -->
+                                <footer class="slds-modal__footer">
+                                    <button class="slds-button slds-button_neutral" onclick={closeConfirm}
+                                        title="Cancel">Cancel</button>
+                                    <button class="slds-button slds-button_brand" onclick={handleDelete} title="OK">OK</button>
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 9 Apex Class getFreeUsageList -->
+        <h1>9 Apex Class getFreeUsageList</h1>
+        <div class="slds-m-around_large">
+            <template for:each={resultFreeUsage} for:item="freeUsageResult">
+                <p key={freeUsageResult.Id}>
+                    {freeUsageResult.Id} {freeUsageResult.Name}
+                </p>
+            </template>
+            <h2 id="element-with-table-label2" class="slds-text-heading_medium slds-m-bottom_xx-small">
+                <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
+                9 FreeUsage
+            </h2>
+            <h3 id="other-element-with-table-label2" class="slds-text-title slds-m-bottom_small">Using
+                <code>aria-labelledby</code>, instead of aria-label
+            </h3>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="FreeUsage Id">FreeUsage Id</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Name">Name</div>
+                        </th>
+                        <th class="" scope="col">
+                            <div class="slds-truncate" title="Email">Actions</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={resultFreeUsage} for:item="freeUsageResult">
+                        <tr key={freeUsageResult.Id} class="slds-hint-parent">
+                            <th data-label="FreeUsage Id" scope="col">
+                                <div class="slds-truncate" title={freeUsageResult.Id}><a
+                                        href="#">{freeUsageResult.Id}</a>
+                                </div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title={freeUsageResult.Name}>{freeUsageResult.Name}</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate">
+                                    <div class="myButton">
+                                        <lightning-button-menu icon-size="x-small" alternative-text="Show menu"
+                                            data-record-id={freeUsageResult.Id} onselect={handleOnselectFreeUsage}
+                                            menu-alignment="auto">
+                                            <lightning-menu-item value="Edit" label="Edit">
+                                            </lightning-menu-item>
+                                            <lightning-menu-item value="Delete" label="Delete">
+                                            </lightning-menu-item>
+                                        </lightning-button-menu>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 10 Delete from RecordId -->
+        <h1>10 Delete from RecordId</h1>
+        <lightning-card title="Delete Records without Server-Side Script" icon-name="utility:user">
+            <template if:true={accounts}>
+                <div class="slds-var-m-around_medium">
+                    <template for:each={accounts} for:item="acc">
+                        <lightning-layout key={acc.Id} class="slds-var-m-vertical_x-small">
+                            <lightning-layout-item flexibility="grow">
+                                {acc.Name}
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="grow">
+                                <lightning-button-icon icon-name="utility:delete" onclick={deleteAccount}
+                                    data-record-id={acc.Id}>
+                                </lightning-button-icon>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </template>
+                </div>
+            </template>
+        </lightning-card>
+
+        <!-- 11 Confirm Before Delete -->
+        <h1>11 Confirm Before Delete</h1>
+        <lightning-button variant="brand" label="What is Modal/PopUp in LWC?" title="What is Modal/PopUp in LWC?"
+            onclick={openModal} class="slds-m-left_x-small">
+        </lightning-button>
+        <!--Use template if:true to display/hide popup based on isModalOpen value-->
+        <template if:true={isModalOpen}>
+            <!-- Modal/Popup Box LWC starts here -->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box LWC header here -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Modal/PopUp Box header
+                            LWC</h2>
+                    </header>
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p><b>Modals/Popup Box are used to display content in a layer above the app.
+                            </b></p>
+                        <p><b>This paradigm is used in cases such as the creation or editing of a record, as well as
+                                various types of messaging and wizards.
+                            </b></p>
+                    </div>
+                    <!-- Modal/Popup Box LWC footer starts here -->
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={closeModal}
+                            title="Cancel">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
+        <!-- 12 Update Table After Update Record -->
+        <h1>12 Update Table After Update Record</h1>
+        
+
+    </div>
+</template>
