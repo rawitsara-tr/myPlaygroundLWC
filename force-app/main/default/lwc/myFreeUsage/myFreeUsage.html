@@ -2,6 +2,7 @@
     <h1>myFreeUsage</h1>
     <template if:true={data}>
         <lightning-card title="Lightning Datatable Example">
+            <lightning-button label="New" slot="actions" onclick={handleCreateFreeUsage}></lightning-button>
             <div class="slds-m-around_medium">
                 <lightning-input 
                     type="search" 

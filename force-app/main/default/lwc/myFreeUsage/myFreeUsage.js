@@ -24,7 +24,6 @@ const columns = [{
     sortable: true
 },
 {
-    label: 'Actions',
     type: 'action',
     typeAttributes: { rowActions: actions },
 }
@@ -168,6 +167,15 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
     @track error;
     closeConfirmFreeUsage() {
         this.isConfirmOpenFreeUsage = false;
+    }
+    handleCreateFreeUsage() {
+        this[NavigationMixin.Navigate] ({
+            type: 'standard__objectPage',
+            attributes: {
+                actionName: "new",
+                objectApiName: "FreeUsage__c" 
+            }
+        })
     }
     handleDeleteFreeUsage() {
         this.isConfirmOpenFreeUsage = false;
