@@ -4,11 +4,9 @@ import getAccounts from "@salesforce/apex/DataTableActionsController.getAccounts
 import currentUserId from '@salesforce/user/Id';
 import { subscribe, unsubscribe, onError}  from 'lightning/empApi';
 
-
 const actions = [
     { label: 'Edit', name: 'edit' },
 ];
-
 const columns = [
     { label: 'Name', fieldName: 'Name' },
     { label: 'Account Number', fieldName: 'AccountNumber'},
@@ -19,14 +17,12 @@ const columns = [
 ];
 
 export default class DataTableActions extends NavigationMixin( LightningElement ) {
-
     columns = columns;
     data = [];
     error;
     recordId;
     createdRecord = false;
     isLoading = false;
-  
 
     subscription = {};
     CHANNEL_NAME = '/event/Refresh_Record_Event__e';
@@ -42,7 +38,6 @@ export default class DataTableActions extends NavigationMixin( LightningElement 
             console.error('Server Error--->'+error);
         });
     }
-
     manageEvent = event=> {
         const refreshRecordEvent = event.data.payload;
         this.isLoading = true;
@@ -54,7 +49,6 @@ export default class DataTableActions extends NavigationMixin( LightningElement 
             this.fetchAccounts();
         }
     }
-    
     fetchAccounts() {
         getAccounts()
             .then(result => {
@@ -68,7 +62,6 @@ export default class DataTableActions extends NavigationMixin( LightningElement 
                 this.isLoading = false;
             });
     }
-
     handleRowAction(event) {
         const actionName = event.detail.action.name;
         const row = event.detail.row;
@@ -88,7 +81,6 @@ export default class DataTableActions extends NavigationMixin( LightningElement 
             default:
         }
     }
-
     createAccount(){
         this[NavigationMixin.Navigate]({
             type: 'standard__objectPage',
@@ -101,13 +93,10 @@ export default class DataTableActions extends NavigationMixin( LightningElement 
             }
         }); 
         this.createdRecord = true;
-        
     }
-
     disconnectedCallback() {
         unsubscribe(this.subscription, response => {
             console.log('Unsubscribed Channel');
         });
     }
-
 }
