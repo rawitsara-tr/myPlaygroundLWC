@@ -45,6 +45,8 @@ export default class MyFreeUsagePrototype extends NavigationMixin(LightningEleme
                 if (result) {
                     this.wiredFreeUsageResult = result;
                     var resultData = JSON.parse(result);
+                    console.log('result >> ', result);
+                    console.log('resultData >> ', resultData);
                     this.accounts = resultData.accounts;
                     this.pageNumber = resultData.pageNumber;
                     this.totalRecords = resultData.totalRecords;

@@ -13,7 +13,6 @@ public with sharing class myFreeUsageController {
         if ( sortBy != null && sortDirection != null ) {
             query += ' ORDER BY ' + sortBy + ' ' + sortDirection;
         }
-        query = query + ' LIMIT 10';
         return Database.query( query );
     }
 }

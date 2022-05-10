@@ -35,10 +35,14 @@
                             icon-name="utility:chevronleft" 
                             onclick={previousHandler}>
                         </lightning-button>
+
                     </lightning-layout-item>
-                    <lightning-layout-item flexibility="auto">
+                    <span class="slds-badge slds-badge_lightest">
                         Page {page} of {totalPage}
-                    </lightning-layout-item>
+                    </span>
+                    <!-- <lightning-layout-item flexibility="auto">
+                        Page {page} of {totalPage}
+                    </lightning-layout-item> -->
                     <lightning-layout-item flexibility="auto">
                         <lightning-button 
                             label="Next" 
@@ -66,7 +70,7 @@
                             </header>
                             <!-- Modal/Popup Box LWC body starts here -->
                             <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                                <center><p><b>Are you sure to detete {deleteFreeUsageName} ?</b></p></center>
+                                <center><p>Are you sure to detete <b>{deleteFreeUsageName}</b> ?</p></center>
                             </div>
                             <!-- Modal/Popup Box LWC footer starts here -->
                             <footer class="slds-modal__footer">
