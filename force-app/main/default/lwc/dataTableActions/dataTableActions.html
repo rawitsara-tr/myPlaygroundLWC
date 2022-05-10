@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Refreshing Data Table without Entire Page Refresh">
+        <lightning-button label="New" slot="actions" onclick={createAccount}></lightning-button>
+        <lightning-datatable
+                key-field="id"
+                data={data}
+                columns={columns}
+                onrowaction={handleRowAction}
+                hide-checkbox-column>
+        </lightning-datatable>
+    </lightning-card> 
+
+    <lightning-spinner alternative-text="Loading" size="small" if:true={isLoading}></lightning-spinner>
+    
+</template>

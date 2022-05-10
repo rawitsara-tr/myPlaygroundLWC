@@ -1,0 +1,10 @@
+<template>
+	<lightning-card title="Refresh Lightning Datatable after Edit Record" icon-name="utility:edit_form"> <br/>
+		<div style="width: auto;">
+			<template if:true={data}>
+				<lightning-datatable data={data} columns={columns} key-field="id" hide-checkbox-column="true"
+					onrowaction={handleRowActions}></lightning-datatable>
+			</template>
+		</div>
+	</lightning-card>
+ </template>

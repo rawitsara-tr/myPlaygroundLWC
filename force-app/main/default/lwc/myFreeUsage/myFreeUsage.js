@@ -50,13 +50,12 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
     @track totalPage = 0;
     isPageChanged = false;
     initialLoad = true;
-
     headerTitle;
     wiredFreeUsageResult;
     @wire(getOpps, { searchKey: '$searchKey', sortBy: '$sortedBy', sortDirection: '$sortedDirection' })
     wiredAccounts(result) {
-        console.log('57 result >> ', result);
-        console.log('58 result.data >> ', result.data);
+        //console.log('57 result >> ', result);
+        //console.log('58 result.data >> ', result.data);
         this.wiredFreeUsageResult = result;
         if (result.data) {
             this.processRecords(result.data);
@@ -69,7 +68,7 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
     processRecords(data) {
         this.items = data;
         this.totalRecountCount = data.length;
-        console.log(this.totalRecountCount);
+        //console.log(this.totalRecountCount);
         this.headerTitle = 'FreeUsage List  ( ' + this.totalRecountCount + ' )';
         this.totalPage = Math.ceil(this.totalRecountCount / this.pageSize);
         this.data = this.items.slice(0, this.pageSize);
