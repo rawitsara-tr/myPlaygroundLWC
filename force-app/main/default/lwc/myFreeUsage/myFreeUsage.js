@@ -3,7 +3,9 @@ import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { deleteRecord } from 'lightning/uiRecordApi';
-import getOpps from '@salesforce/apex/myFreeUsageController.getOpps';
+import { subscribe, unsubscribe, onError } from 'lightning/empApi';
+import currentUserId from '@salesforce/user/Id';
+import getFU from '@salesforce/apex/myFreeUsageController.getFU';
 
 const actions = [
     { label: 'Edit', name: 'Edit' },
@@ -33,7 +35,6 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
 
     @track value;
     @track error;
-    @track data;
     @api sortedDirection = 'asc';
     @api sortedBy = 'Name';
     @api searchKey = '';
@@ -52,19 +53,43 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
     initialLoad = true;
     headerTitle;
     wiredFreeUsageResult;
-    @wire(getOpps, { searchKey: '$searchKey', sortBy: '$sortedBy', sortDirection: '$sortedDirection' })
-    wiredAccounts(result) {
+    isLoading = false;
+
+    subscription = {};
+    CHANNEL_NAME = '/event/Refresh_FreeUsage_Event__e';
+
+    connectedCallback() {
+        this.isLoading = true;
+        subscribe(this.CHANNEL_NAME, -1, this.manageEvent).then(response => {
+            console.log('66 Hello Subscribed Channel');
+            this.subscription = response;
+        });
+        onError(error => {
+            console.error('70 Server Error--->'+error);
+        });
+    }
+    manageEvent = event => {
+        this.isLoading = true;
+        console.log('รีเฟรชชชชชชชชชชชชชช');
+        return refreshApex(this.wiredFreeUsageResult);
+    }
+
+    @wire(getFU, { searchKey: '$searchKey', sortBy: '$sortedBy', sortDirection: '$sortedDirection' })
+    wiredFreeUsage(result) {
         //console.log('57 result >> ', result);
-        //console.log('58 result.data >> ', result.data);
+        console.log('58 result.data >> ', result.data);
         this.wiredFreeUsageResult = result;
         if (result.data) {
+            this.isLoading = false;
             this.processRecords(result.data);
             this.error = undefined;
         } else if (result.error) {
+            this.isLoading = false;
             this.error = error;
             this.data = undefined;
         }
     }
+
     processRecords(data) {
         this.items = data;
         this.totalRecountCount = data.length;
@@ -165,12 +190,11 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
     @track isConfirmOpenFreeUsage = false;
     @track deleteFreeUsageId;
     @track deleteFreeUsageName;
-    @track error;
     closeConfirmFreeUsage() {
         this.isConfirmOpenFreeUsage = false;
     }
     handleCreateFreeUsage() {
-        this[NavigationMixin.Navigate] ({
+        this[NavigationMixin.Navigate]({
             type: 'standard__objectPage',
             attributes: {
                 actionName: "new",
@@ -180,7 +204,7 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
     }
     handleDeleteFreeUsage() {
         this.isConfirmOpenFreeUsage = false;
-        console.log('Deleting... ', this.deleteFreeUsageId);
+        //console.log('Deleting... ', this.deleteFreeUsageId);
         deleteRecord(this.deleteFreeUsageId)
             .then(() => {
                 this.dispatchEvent(
@@ -207,7 +231,7 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
         const actionName = event.detail.action.name;
         this.deleteFreeUsageId = event.detail.row.Id;
         this.deleteFreeUsageName = event.detail.row.Name;
-        console.log('event.detail.row >> ', this.deleteFreeUsageId);
+        //console.log('event.detail.row >> ', this.deleteFreeUsageId);
         switch (actionName) {
             case 'Edit':
                 this[NavigationMixin.Navigate]({
@@ -224,6 +248,11 @@ export default class MyFreeUsage extends NavigationMixin(LightningElement) {
                 break;
             default:
         }
+    }
+    disconnectedCallback() {
+        unsubscribe(this.subscription, response => {
+            console.log('Unsubscribed Channel');
+        });
     }
 
 }

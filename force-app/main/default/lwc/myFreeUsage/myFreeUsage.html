@@ -1,5 +1,6 @@
 <template>
     <h1>myFreeUsage</h1>
+    <lightning-spinner alternative-text="Loading" size="small" if:true={isLoading}></lightning-spinner>
     <template if:true={data}>
         <lightning-card title={headerTitle}>
             <lightning-button label="New" slot="actions" onclick={handleCreateFreeUsage}></lightning-button>

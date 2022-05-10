@@ -40,12 +40,12 @@ export default class RefreshFreeUsage extends NavigationMixin(LightningElement) 
         });
 
         onError(error => {
-            console.error('Received error from server: ', error);
+            //console.error('Received error from server: ', error);
         });
     }
 
     handleEvent = event => {
-        console.log('event >> ', event);
+        //console.log('event >> ', event);
         const refreshRecordEvent = event.data.payload;
         if (refreshRecordEvent.RecordId__c === this.recordId) {
             this.recordId = '';

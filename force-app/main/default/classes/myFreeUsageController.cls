@@ -3,8 +3,7 @@ public with sharing class myFreeUsageController {
 
     }
     @AuraEnabled(cacheable=true)
-    public static List<FreeUsage__c> getOpps( String searchKey, String sortBy, String sortDirection) {
-        
+    public static List<FreeUsage__c> getFU( String searchKey, String sortBy, String sortDirection) {   
         String query = 'SELECT Id, Name FROM FreeUsage__c';
         system.debug('query---'+query);
         if ( searchKey != null && searchKey != '' ) {

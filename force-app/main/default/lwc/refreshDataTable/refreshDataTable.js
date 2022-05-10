@@ -36,7 +36,7 @@ export default class RefreshDataTable extends NavigationMixin(LightningElement) 
 
     connectedCallback() {
         subscribe(this.CHANNEL_NAME, -1, this.handleEvent).then(response => {
-            console.log('Successfully subscribed to channel');
+            //console.log('Successfully subscribed to channel');
             this.subscription = response;
         });
 
